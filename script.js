@@ -1,23 +1,36 @@
 // Create a border width and height to container all other divs
 const container = document.querySelector("#container");
-container.setAttribute("style", "border: 1px black solid; width: 50vw; height: 50vh");
-container.setAttribute("style", "display: flex; justify-content: center;")
+container.setAttribute("style", "display: grid; grid-template-columns: repeat(16, 2vw); justify-items: center;")
 
-// create one div
-const Div = document.createElement('div');
-container.appendChild(Div);
-Div.setAttribute("style", "border: 1px black solid; width: 5vw; height: 5vh");
 
-const div = document.createElement('div');
-        container.appendChild(div);
-for (i = 0; i < 16; i++) {
-    for (k = 0; k < 16; k++) {
-        div.setAttribute("style", "border: 1px black solid; width: 5vw; height: 5vh");
+// create one line of div grids
+function createRowOfDivs() {
+    const div = document.createElement('div');
+    container.appendChild(div);
+    div.setAttribute("style", "border: 1px black solid; width: 2vw; height: 2vh");
+    div.addEventListener('mouseover', () => {
+        div.style.backgroundColor = "red";
+    })
+}
+
+// Create a 16x16 grid made of divs
+let height = 16;
+function createDivs () {
+    for (i = 0; i < height; i++) {
+        for (j = height - 1; j > i; j--) {
+            // insert box
+            createRowOfDivs();
+        }
+
+        for (k = -1; k < i; k++) {
+            // insert box
+            createRowOfDivs();
+        }
     }
-    div.setAttribute("style", "border: 1px black solid; width: 5vw; height: 5vh");
-    const br = document.createElement('br');
-        container.appendChild(br);
+    
 }
 
 
+
+createDivs();
 
